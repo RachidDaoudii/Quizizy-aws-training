@@ -1,0 +1,57 @@
+{
+    "id":1,
+    "quizz":"quiz1",
+    "Questions":[
+        {
+            "id":1,
+            "Question":"1) Why is AWS more economical than traditional data centers for applications with varying compute workloads?",
+            "Reponses":[
+            {
+                "Reponse_1" :"A) Amazon EC2 costs are billed on a monthly basis",
+                "Reponse_2":"B) Users retain full administrative access to their Amazon EC2 instances",
+                "Reponse_3":"C) Amazon EC2 instances can be launched on demand when needed",
+                "Reponse_4":"D) Users can permanently run enough instances to handle peak workloads",
+                "Reponse_vrai":"C) Amazon EC2 instances can be launched on demand when needed"
+            }
+        ]
+        },
+        {
+            "id":2,
+            "Question":"2) Which AWS service would simplify the migration of a database to AWS?",
+            "Reponses":[
+                {
+                    "Reponse_1":"A) AWS Storage Gateway",
+                    "Reponse_2":"B) AWS Database Migration Service (AWS DMS)",
+                    "Reponse_3":"C) Amazon EC2",
+                    "Reponse_4":"D) Amazon AppStream 2.0",
+                    "Reponse_vrai":"B) AWS Database Migration Service (AWS DMS)"
+                }
+            ]
+        },
+        {
+            "id":3,
+        "Question":"3) Which AWS offering enables users to find, buy, and immediately start using software solutions in their AWS environment?",
+        "Reponses":[
+            {
+                "Reponse_1":"A) AWS Config",
+                "Reponse_2":"B) AWS OpsWorks",
+                "Reponse_3":"C) AWS SDK",
+                "Reponse_4":"D) AWS Marketplace",
+                "Reponse_vrai":"D) AWS Marketplace"
+            }
+        ]
+        },
+        {
+            "id":4,
+        "Question":"4) Which AWS networking service enables a company to create a virtual network within AWS?",
+        "Reponse_1":"A) AWS Config",
+        "Reponse_2":"B) Amazon Route 53",
+        "Reponse_3":"C) AWS Direct Connect",
+        "Reponse_4":"D) Amazon Virtual Private Cloud (Amazon VPC",
+        "Reponse_vrai":"D) Amazon Virtual Private Cloud (Amazon VPC"
+        }
+    ]
+}
+
+
+
