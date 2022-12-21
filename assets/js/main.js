@@ -5,6 +5,8 @@ let TotalQuestion = document.querySelector('.TotalQuestion .number');
 var indexQuestion = 1;
 var indexReponse=0;
 
+var ReponseTrue=0
+
 //numbre Queqtion
 let numberq = document.querySelector('.Q .number');
  function getQuestion(){
@@ -34,6 +36,8 @@ let numberq = document.querySelector('.Q .number');
                 CountQuestion(indexQuestion)
 
                 // rt()
+                // resultat
+                resultat(nbr)
             }            
         }
     })
@@ -69,32 +73,34 @@ let Questionn = document.getElementById('Question');
 let re = document.querySelector(".ul");
 
 function AddQuestion(obj,count){
-    let newQuestion = document.createTextNode(obj['Question']);
-    //Append Question in quiz
-    Questionn.append(newQuestion);
+    if(indexQuestion <= count){
+        let newQuestion = document.createTextNode(obj['Question']);
+        //Append Question in quiz
+        Questionn.append(newQuestion);
 
-    for (let i =1;  i<5;i++) {
-        var li = document.createElement("li")
-        let icons = document.createElement('i')
-        let radio = document.createElement('input')
-        let label = document.createElement('label')
+        for (let i =1;  i<5;i++) {
+            var li = document.createElement("li")
+            let icons = document.createElement('i')
+            let radio = document.createElement('input')
+            let label = document.createElement('label')
 
-        icons.className = 'fa-solid fa-circle-question'
+            icons.className = 'fa-solid fa-circle-question'
 
-        radio.name = 'Reponse'
-        radio.type = 'radio'
-        radio.value = obj[`Reponse_${i}`];
-        radio.id = `Reponse_${i}`
+            radio.name = 'Reponse'
+            radio.type = 'radio'
+            radio.value = obj[`Reponse_${i}`];
+            radio.id = `Reponse_${i}`
 
-        label.id= 'idradio'
-        label.className = 'r'
-        label.htmlFor = `Reponse_${i}`
-        label.innerHTML = obj[`Reponse_${i}`]
+            label.id= 'idradio'
+            label.className = 'r'
+            label.htmlFor = `Reponse_${i}`
+            label.innerHTML = obj[`Reponse_${i}`]
 
-        li.appendChild(icons)
-        li.appendChild(radio)
-        li.appendChild(label)
-        re.appendChild(li)
+            li.appendChild(icons)
+            li.appendChild(radio)
+            li.appendChild(label)
+            re.appendChild(li)
+        }
     }
 }
 
@@ -110,14 +116,19 @@ function reponses(obj,nbr){
             Reponsess =  checkReponse[i].value
         }
     }
-    console.log(' question check est ',Reponsess)
+
+    
+    // console.log(' question check est ',Reponsess)
     // console.log(obj[0].Reponse_vrai)
-    console.log('reponse hhh est',obj['Reponse_vrai'])
+    // console.log('reponse hhh est',obj['Reponse_vrai'])
     if(Reponsess === obj['Reponse_vrai']){
         console.log("good")
+        ReponseTrue++
     }else{
+        ReponseTrue
         console.log("not good")
     }
+    console.log(ReponseTrue)
 }
 
 
@@ -142,4 +153,30 @@ function first(t){
 
 
 
+let timeElm = document.querySelector('.time .duree');
+let timer = function(x) {
+ if(x === 0) {
+    suivant.onclick()
+    x=30
+ }
+ timeElm.innerHTML = x;
 
+ return setTimeout(() => {timer(--x)}, 1000)
+}
+
+timer(30);
+
+
+function resultat(nbr){
+    jh = nbr+1
+
+    if(indexQuestion === jh){
+        console.log('fin')
+        // console.log(indexQuestion)
+        // console.log(jh)
+        suivant.remove()
+        timeElm.innerText=ReponseTrue
+        console.log(ReponseTrue)
+        document.querySelector('.resultat').innerText='Resultat'
+    }
+}
