@@ -13,7 +13,7 @@
                 "Reponse_4":"D) Users can permanently run enough instances to handle peak workloads",
                 "Reponse_vrai":"C) Amazon EC2 instances can be launched on demand when needed"
             }
-        ]
+            ]
         },
         {
             "id":2,

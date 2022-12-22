@@ -4,20 +4,30 @@ let suivant = document.querySelector('.suivant');
 let TotalQuestion = document.querySelector('.TotalQuestion .number');
 var indexQuestion = 1;
 var indexReponse=0;
+var score = 0;
+var ReponseTrue = 0
 
-var ReponseTrue=0
+var u=30;
+var nom
+var prenom
+
+
+let timeElm = document.querySelector('.time .duree');
 
 //numbre Queqtion
 let numberq = document.querySelector('.Q .number');
- function getQuestion(){
+async function getQuestion(){
     $.ajax({
         url:"/assets/js/data2.json",
         type:'GEt',
         success:function(data,status){
             let ObjQuestion = new Object(data);
+            ObjQuestion = ObjQuestion.Questions.sort(() => Math.random() - 0.5)
+            console.log(ObjQuestion.Questions)
             let countQuestion = ObjQuestion.length;
             nbr = countQuestion;
             TotalQuestion.innerHTML = nbr
+            console.log(nbr)
             //add first question in page
             first(ObjQuestion[0])
             //btn next question
@@ -30,19 +40,23 @@ let numberq = document.querySelector('.Q .number');
                 Questionn.innerHTML='';
                 // vide les reponse
                 document.querySelector(".ul").innerHTML='';
-
+                //add Question
                 AddQuestion(test,nbr)
                 
                 CountQuestion(indexQuestion)
-
-                // rt()
                 // resultat
                 resultat(nbr)
-            }            
+                
+                // timer(30)
+                u=31
+            }
+            reponsesV(ObjQuestion,nbr)           
         }
     })
 }
 getQuestion()
+
+
 
 function CountQuestion(nbr){
     numberq.innerHTML=nbr;
@@ -77,7 +91,7 @@ function AddQuestion(obj,count){
         let newQuestion = document.createTextNode(obj['Question']);
         //Append Question in quiz
         Questionn.append(newQuestion);
-
+        console.log(count)
         for (let i =1;  i<5;i++) {
             var li = document.createElement("li")
             let icons = document.createElement('i')
@@ -116,16 +130,16 @@ function reponses(obj,nbr){
             Reponsess =  checkReponse[i].value
         }
     }
-
-    
     // console.log(' question check est ',Reponsess)
     // console.log(obj[0].Reponse_vrai)
     // console.log('reponse hhh est',obj['Reponse_vrai'])
     if(Reponsess === obj['Reponse_vrai']){
         console.log("good")
         ReponseTrue++
+        score+=100
     }else{
         ReponseTrue
+        score
         console.log("not good")
     }
     console.log(ReponseTrue)
@@ -151,32 +165,99 @@ function first(t){
 }
 
 
+// var u=30;
 
+// let p = setInterval(timer(30),1000)
+// let timer = function(u) {
+// if(u === 0) {
+// suivant.onclick()
+// u=30
+// }else{
+// clearInterval(p)
+// }
+// timeElm.innerHTML = u;
 
-let timeElm = document.querySelector('.time .duree');
-let timer = function(x) {
- if(x === 0) {
-    suivant.onclick()
-    x=30
- }
- timeElm.innerHTML = x;
+// return setTimeout(() => {timer(--u)}, 1000)
+// }
 
- return setTimeout(() => {timer(--x)}, 1000)
+let p = setInterval(a,1000)
+function a(){
+    u--
+    timeElm.innerHTML =u+'s'
+    if(u === 0) {
+        if(indexQuestion<5){
+            suivant.onclick()
+            u=30
+        }else{
+            clearInterval(p)
+        }
+    }
 }
 
-timer(30);
+// timer(30)
+
+
+
+// var timeLeft = 10;
+//     var elem =document.querySelector('.time .duree');
+//     var timerId = setInterval(countdown, 1000);
+//     function countdown() {
+//     if (timeLeft == -1) {
+//     clearTimeout(timerId);
+//     } else {
+//     elem.innerHTML = timeLeft + 's';
+//     timeLeft--;
+//     }
+//     }
+
+
+
+
+
+//     countdown()
+
+
+
+
+
 
 
 function resultat(nbr){
     jh = nbr+1
-
     if(indexQuestion === jh){
         console.log('fin')
-        // console.log(indexQuestion)
-        // console.log(jh)
         suivant.remove()
         timeElm.innerText=ReponseTrue
+        timeElm.remove()
         console.log(ReponseTrue)
-        document.querySelector('.resultat').innerText='Resultat'
+        console.log(score)
+        document.querySelector('.resultat').innerText=nom+' '+prenom+' Resultat '+ReponseTrue
+        document.querySelector('.TotalQuestion').innerText='Score '+score
+        document.querySelector('.progressBar').children[2].classList.add('active')
+        document.querySelector('.test').style.display='block'
+    }
+}
+
+
+let start = document.getElementById('start')
+
+start.addEventListener('click',function(){
+    document.querySelector('.displayStart').style.display='none'
+    document.querySelector('.quiz').style.display='block'
+    document.querySelector('.progressBar').children[1].classList.add('active')
+    nom = document.querySelector('#nom').value
+    prenom = document.querySelector('#prenom').value
+    u=31
+})
+
+
+// array.sort(X,Y)=math random()
+
+
+function reponsesV(obj,nbr){
+    for (let i = 0; i < nbr; i++) {
+        var li = document.createElement("li")
+        li.innerText=obj[i].Reponse_vrai
+        document.querySelector('.test ul').appendChild(li)
     }
 }
