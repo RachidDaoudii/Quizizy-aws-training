@@ -7,15 +7,19 @@ var indexReponse=0;
 var score = 0;
 var ReponseTrue = 0
 
-var u=30;
+var u;
 var nom
 var prenom
 
 
 let timeElm = document.querySelector('.time .duree');
 
+var objGlobal
+
 //numbre Queqtion
 let numberq = document.querySelector('.Q .number');
+// reponse check user 
+var listReponse = []
 async function getQuestion(){
     $.ajax({
         url:"/assets/js/data2.json",
@@ -23,11 +27,11 @@ async function getQuestion(){
         success:function(data,status){
             let ObjQuestion = new Object(data);
             ObjQuestion = ObjQuestion.Questions.sort(() => Math.random() - 0.5)
-            console.log(ObjQuestion.Questions)
             let countQuestion = ObjQuestion.length;
             nbr = countQuestion;
             TotalQuestion.innerHTML = nbr
             console.log(nbr)
+            objGlobal=ObjQuestion
             //add first question in page
             first(ObjQuestion[0])
             //btn next question
@@ -47,12 +51,17 @@ async function getQuestion(){
                 // resultat
                 resultat(nbr)
                 
-                // timer(30)
                 u=31
+                // u=10
             }
-            reponsesV(ObjQuestion,nbr)           
+            // reponsesV(ObjQuestion,nbr)   
+            
+            async:false 
         }
+        
     })
+    
+    
 }
 getQuestion()
 
@@ -129,8 +138,13 @@ function reponses(obj,nbr){
         if(checkReponse[i].checked){
             Reponsess =  checkReponse[i].value
         }
+        else{
+            // Reponsess = 'aucun reponse'
+        }
     }
-    // console.log(' question check est ',Reponsess)
+
+    console.log(' question '+nom+'check est ',Reponsess)
+    listReponse.push(Reponsess)
     // console.log(obj[0].Reponse_vrai)
     // console.log('reponse hhh est',obj['Reponse_vrai'])
     if(Reponsess === obj['Reponse_vrai']){
@@ -226,6 +240,7 @@ function resultat(nbr){
     jh = nbr+1
     if(indexQuestion === jh){
         console.log('fin')
+        reponsesV(listReponse)
         suivant.remove()
         timeElm.innerText=ReponseTrue
         timeElm.remove()
@@ -234,7 +249,25 @@ function resultat(nbr){
         document.querySelector('.resultat').innerText=nom+' '+prenom+' Resultat '+ReponseTrue
         document.querySelector('.TotalQuestion').innerText='Score '+score
         document.querySelector('.progressBar').children[2].classList.add('active')
-        document.querySelector('.test').style.display='block'
+        // document.querySelector('.test').style.display='block'
+
+        // suivant.onclick = () =>{
+        //     // document.querySelector('.test').style.display='none'
+        //     // document.querySelector('.result').style.display='block'
+        //     console.log('repondknfj')
+        // }
+        let btn = document.querySelector('.TotalQuestion')
+        let btnSuivant = document.createElement('input')
+        btnSuivant.type ='submit'
+        btnSuivant.className = 'btn suivant'
+        btnSuivant.value = 'result'
+        btn.appendChild(btnSuivant)
+
+        btnSuivant.onclick = ()=>{
+            document.querySelector('.quiz').style.display='none'
+            document.querySelector('.result').style.display='block'
+        }
+
     }
 }
 
@@ -247,17 +280,41 @@ start.addEventListener('click',function(){
     document.querySelector('.progressBar').children[1].classList.add('active')
     nom = document.querySelector('#nom').value
     prenom = document.querySelector('#prenom').value
+    // u=10
     u=31
 })
 
 
-// array.sort(X,Y)=math random()
-
-
-function reponsesV(obj,nbr){
-    for (let i = 0; i < nbr; i++) {
+function reponsesV(obj){
+    console.log(objGlobal[0].Reponse_vrai)
+    for (let i = 0; i < obj.length; i++) {
         var li = document.createElement("li")
-        li.innerText=obj[i].Reponse_vrai
-        document.querySelector('.test ul').appendChild(li)
+        if(obj[i] == null){
+            li.innerText='aucun reponse'
+            li.className = 'faux'
+        }else{
+            li.innerText=obj[i]
+            if(obj[i] === objGlobal[i].Reponse_vrai ){
+                console.log('yes')
+                li.className = 'vrai'
+            }else{
+                console.log('no')
+                li.className = 'faux'
+            }
+        }
+        document.querySelector('.votre ul').appendChild(li)
+        var liRepnse = document.createElement("li")
+        liRepnse.className = 'vrai'
+        liRepnse.innerText = objGlobal[i].Reponse_vrai
+        document.querySelector('.true ul').appendChild(liRepnse)
     }
+    // for (let i = 0; i < obj.length; i++) {
+    //     if(obj[i] === objGlobal[i].Reponse_vrai ){
+    //         li.className = 'vrai'
+    //         document.querySelector('.votre ul').appendChild(li)
+    //     }else{
+    //         li.className = 'faux'
+    //         document.querySelector('.votre ul').appendChild(li)
+    //     }
+    // }
 }

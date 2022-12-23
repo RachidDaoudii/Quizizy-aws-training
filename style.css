@@ -10,7 +10,7 @@ body {
   background-color: #DFF6FF;
 }
 
-.flex, .test, .btn-reponse, .title, .reponse, .progress, .group, .list ul {
+.flex, .result .questionResult, .test, .btn-reponse, .title, .reponse, .progress, .group, .list ul {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -85,7 +85,7 @@ body {
 
 .cart-quiz {
   display: block;
-  width: 60%;
+  width: 80%;
   height: auto;
   border-radius: 5px;
   border: 2px solid var(--color3bleu);
@@ -125,7 +125,7 @@ body {
   display: none;
 }
 
-.Q {
+.Q, .result {
   margin-top: 10px;
   padding: 10px;
   text-align: center;
@@ -243,10 +243,31 @@ body {
 }
 
 .test ul {
-  margin: 30px;
+  margin: 10px;
 }
 .test ul li {
-  padding: 5px;
-  font-size: large;
+  padding: 2px;
+  font-size: small;
   color: #058b24;
+}
+
+.result {
+  display: none;
+}
+.result .questionResult {
+  width: 100%;
+}
+.result .questionResult .votre {
+  width: 50%;
+}
+.result .questionResult .true {
+  width: 50%;
+}
+
+.vrai {
+  background-color: #37dd5d;
+}
+
+.faux {
+  background-color: rgb(251, 72, 72);
 }/*# sourceMappingURL=style.css.map */

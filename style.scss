@@ -93,7 +93,7 @@ body{
 .cart-quiz{
     display: block;
     // justify-content: center;
-    width: 60%;
+    width: 80%;
     height: auto;
     border-radius: 5px;
     border: 2px solid var(--color3bleu);
@@ -283,11 +283,33 @@ input[type="radio"]{
         @extend .beinvenu
     }
     ul{
-        margin: 30px;
+        margin: 10px;
         li{
-            padding: 5px;
-            font-size: large;
+            padding: 2px;
+            font-size: small;
             color: $color-vert;
         }
     }
+}
+.result{
+    display: none;
+    @extend .Q;
+    .questionResult{
+        width: 100%;
+        @extend .flex;
+        .votre{
+            width: 50%;
+        }
+        .true{
+            width: 50%;
+        }
+    }
+}
+
+
+.vrai{
+    background-color: #37dd5d;
+}
+.faux{
+    background-color: rgb(251, 72, 72);
 }
