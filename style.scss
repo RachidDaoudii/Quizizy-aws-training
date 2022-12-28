@@ -1,5 +1,7 @@
 @import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
-
+*{
+    font-family: Arial;
+}
 :root{
     --colorbleu: #DFF6FF;
     --colorbleuda: #06283D;
@@ -83,7 +85,6 @@ body{
     border-radius: 5px;
     border: none;
     margin-top: 30px;
-    margin-left: 110px;
     :hover{
         background-color: var(--colordarkbleu);
     }
@@ -93,7 +94,7 @@ body{
 .cart-quiz{
     display: block;
     // justify-content: center;
-    width: 80%;
+    width: 65%;
     height: auto;
     border-radius: 5px;
     border: 2px solid var(--color3bleu);
@@ -132,6 +133,11 @@ body{
 
 .quiz{
     display: none;
+    // .TotalQuestion{
+    // display: flex;
+    // justify-content: space-around;
+    // width: 50%;
+    // }
 }
 
 .Q{
@@ -180,8 +186,9 @@ body{
 .btn-reponse{
     @extend .flex;
     margin-bottom: 15px;
-    justify-content: space-around;
-    align-items:flex-end;
+
+    justify-content: space-between;
+    align-items:center;
     .suivant{
         width: 100px;
         margin-right: 50px;
@@ -304,12 +311,144 @@ input[type="radio"]{
             width: 50%;
         }
     }
+    .suivant{
+        margin: auto;
+    }
 }
 
 
 .vrai{
     background-color: #37dd5d;
+    height: max-content;
 }
 .faux{
     background-color: rgb(251, 72, 72);
+    height: max-content;
+}
+
+.pro{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    .btn{
+        margin: 0;
+    }
+    .prog{
+        margin: auto;
+    }
+}
+.prog{
+    width: 30%;
+    height: 20px;
+    
+}
+progress {
+	width: 30%;
+	height: 20px;
+	margin: 50px auto;
+	display: block;
+	/* Important Thing */
+	-webkit-appearance: none;
+	border: none;
+}
+
+/* All good till now. Now we'll style the background */
+progress::-webkit-progress-bar {
+	border-radius: 50px;
+	padding: 2px;
+	box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Now the value part */
+progress::-webkit-progress-value {
+	border-radius: 50px;
+	box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+	background:
+		-webkit-linear-gradient(45deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%),
+		-webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)),
+		-webkit-linear-gradient(left, #256D85, #06283D);
+	
+	/* Looks great, now animating it */
+	background-size: 25px 14px, 100% 100%, 100% 100%;
+	-webkit-animation: move 5s linear 0 infinite;
+}
+
+/* That's it! Now let's try creating a new stripe pattern and animate it using animation and keyframes properties  */
+
+@-webkit-keyframes move {
+	0% {background-position: 0px 0px, 0 0, 0 0}
+	100% {background-position: -100px 0px, 0 0, 0 0}
+}
+
+
+input[type="radio"]{
+
+    /* The native appearance is hidden */
+    width: 15px;
+    height: 15px;
+    appearance: none;
+    -webkit-appearance: none;
+  
+    /* For a circular appearance we need a border-radius. */
+    border-radius: 50%;
+  
+    /* The background will be the radio dot's color. */
+    background: #47b5ff5f;
+  
+    /* The border will be the spacing between the dot and the outer circle */
+    border: 3px solid #FFF;
+  
+    /* And by creating a box-shadow with no offset and no blur, we have an outer circle */
+    box-shadow: 0 0 0 1px #256D85;
+  }
+
+  label.r{
+    margin-left: 10px;
+  }
+
+  .liste-explication{
+    text-align: initial;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    list-style: none;
+    padding: 10px;
+    li{
+        padding: 4px;
+    }
+}
+
+
+.questionResult{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    ul{
+        padding: 20px;
+        border: 1px solid #256D85;
+        border-radius: 15px;
+        margin-top: 7px;
+        width: 700px;
+        background-color: #256D85;
+        // color: white;
+        div{
+            padding: 10px;
+        }
+        li{
+            padding: 10px;
+            border: 1px solid #256D85;
+            border-radius: 20px;
+            margin-top: 7px;
+        }
+        .msg{
+            display: flex;
+            justify-content: start;
+            margin-top: 5px;
+        }
+    }
 }

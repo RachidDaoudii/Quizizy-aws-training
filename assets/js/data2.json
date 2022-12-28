@@ -9,7 +9,8 @@
         "Reponse_2":"Users retain full administrative access to their Amazon EC2 instances",
         "Reponse_3":"Amazon EC2 instances can be launched on demand when needed",
         "Reponse_4":"Users can permanently run enough instances to handle peak workloads",
-        "Reponse_vrai":"Amazon EC2 instances can be launched on demand when needed"
+        "Reponse_vrai":"Amazon EC2 instances can be launched on demand when needed",
+        "explication":"The ability to launch instances on demand when needed allows users to launch and terminate instances in response to a varying workload. This is a more economical practice than purchasing enough on-premises servers to handle the peak load."
     },
     {
         "id":2,
@@ -18,7 +19,8 @@
         "Reponse_2":"AWS Database Migration Service (AWS DMS)",
         "Reponse_3":"Amazon EC2",
         "Reponse_4":"Amazon AppStream 2.0",
-        "Reponse_vrai":"AWS Database Migration Service (AWS DMS)"
+        "Reponse_vrai":"AWS Database Migration Service (AWS DMS)",
+        "explication":"AWS DMS helps users migrate databases to AWS quickly and securely. The source database remains fully operational during the migration, minimizing downtime to applications that rely on the database. AWS DMS can migrate data to and from most widely used commercial and open-source databases."
     },
     {
         "id":3,
@@ -27,7 +29,8 @@
         "Reponse_2":"AWS OpsWorks",
         "Reponse_3":"AWS SDK",
         "Reponse_4":"AWS Marketplace",
-        "Reponse_vrai":"AWS Marketplace"
+        "Reponse_vrai":"AWS Marketplace",
+        "explication":"Amazon VPC lets users provision a logically isolated section of the AWS Cloud where users can launch AWS resources in a virtual network that they define."
     },
     {
         "id":4,
@@ -36,7 +39,8 @@
         "Reponse_2":"Amazon Route 53",
         "Reponse_3":"AWS Direct Connect",
         "Reponse_4":"Amazon Virtual Private Cloud (Amazon VPC",
-        "Reponse_vrai":"Amazon Virtual Private Cloud (Amazon VPC"
+        "Reponse_vrai":"Amazon Virtual Private Cloud (Amazon VPC",
+        "explication":"Maintaining physical hardware is an AWS responsibility under the AWS shared responsibility model."
     }
     ]
 }

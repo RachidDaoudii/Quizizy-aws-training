@@ -55,7 +55,6 @@
                         </div>
                     </form>
                     <button class="btn" id="start" >Start</button>
-
                 </div>
             </div>
             <div class="quiz">
@@ -73,60 +72,33 @@
                 </div>
                 <div class="reponse">
                     <ul class="ul">
-                        <li><i class="fa-solid fa-circle-question"></i><input type="radio" id="Reponse_1" name="Reponse" value=""><label for="Reponse_1" class="r"></label></li>
-                        <li><i class="fa-solid fa-circle-question"></i><input type="radio" id="Reponse_2" name="Reponse" value=""><label for="Reponse_2" class="r"></label></li>
-                        <li><i class="fa-solid fa-circle-question"></i><input type="radio" id="Reponse_3" name="Reponse" value=""><label for="Reponse_3" class="r"></label></li>
-                        <li><i class="fa-solid fa-circle-question"></i><input type="radio" id="Reponse_4" name="Reponse" value=""><label for="Reponse_4" class="r"></label></li>
+                        <li><input type="radio" id="Reponse_1" name="Reponse" value=""><label for="Reponse_1" class="r"></label></li>
+                        <li><input type="radio" id="Reponse_2" name="Reponse" value=""><label for="Reponse_2" class="r"></label></li>
+                        <li><input type="radio" id="Reponse_3" name="Reponse" value=""><label for="Reponse_3" class="r"></label></li>
+                        <li><input type="radio" id="Reponse_4" name="Reponse" value=""><label for="Reponse_4" class="r"></label></li>
                     </ul>
                 </div>
-                <div class="btn-reponse">
+                <div class="btn-reponse pro">
                     <div class="TotalQuestion">Question <span class="number"></span></div>
-                    <!-- <progress max="100" value="80"></progress> -->
+                    <progress class="prog" value="" max="100" value=""></progress>
                     <input type="submit" class="btn suivant" value="suivant">
-                    <!-- <button class="btn suivant">suivant</button> -->
                 </div>
             </div>
             <div class="result">
                 <div class="beinvenu">
-                    <h1 class="">Reponse</h1>
+                    <h1 class="h1">Reponse</h1>
                 </div>
                 <div class="questionResult">
-                    <div class="votre reponse">
-                        <ul class="ul">
-                            <h3>votre réponse</h3>
-                            <!-- <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li> -->
-                        </ul>
-                    </div>
-                    <div class="true reponse">
-                        <ul class="ul">
-                            <h3>réponse</h3>
-                            <!-- <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li>
-                            <li>Amazon Route 53</li> -->
-                        </ul>
-                    </div>
 
                 </div>
+                <!-- <input type="submit" class="btn suivant explication" value="l'explication"> -->
             </div>
         </div>
     </div>
-
-    
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
+<script src="/assets/js/explication.js"></script>
 <script src="/assets/js/main.js"></script>
 <script src="/assets/js/data2.json"></script>
+
 </html>
