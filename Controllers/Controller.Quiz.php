@@ -6,4 +6,10 @@ class ControllerQuiz extends ModelQuiz{
     }
 
 
+    function getreponses()
+    {
+        return $this->getreponse();
+    }
+
+
 }
