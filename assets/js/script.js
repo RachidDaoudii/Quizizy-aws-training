@@ -1,14 +1,37 @@
-var ObjectGlobal
+var checks = document.querySelectorAll(".r");
+var Reponses = document.querySelectorAll('input[type="radio"]');
+let suivant = document.querySelector('.suivant');
+let TotalQuestion = document.querySelector('.TotalQuestion .number');
+var indexQuestion = 1;
+var indexReponse=0;
+var score = 0;
+var ReponseTrue = 0
+var dt
+var u;
+var nom
+var prenom
+var correct_answer_id = []
+function arrangCorrect(){
+    corr
+}
+let timeElm = document.querySelector('.time .duree');
+
+
+
+//numbre Queqtion
+let numberq = document.querySelector('.Q .number');
+
+    
 async function getQuestion(){
     $.post("../Controllers/RequestHandler.php",
     {   
         questions:true
     },  
      function(data,status){
-        ObjectGlobal = JSON.parse(data)
-        console.log(ObjectGlobal)
+        ObjectGlobal = JSON.parse(data).sort(() => Math.random() - 0.5)
         let count = ObjectGlobal.length
         first(ObjectGlobal[0])
+        
         suivant.onclick = () =>{
 
             let test = ObjectGlobal[indexQuestion];
@@ -18,7 +41,6 @@ async function getQuestion(){
             indexQuestion++
             indexReponse++
 
-            console.log(indexQuestion)
             //vide title question 
             Questionn.innerHTML='';
             // vide les reponse
@@ -29,9 +51,24 @@ async function getQuestion(){
             CountQuestion(indexQuestion)
             // resultat
             resultat(count)
+
+            // reponsesV(ObjectGlobal)
             
             u=31
+            if(indexQuestion>count){
+                $.post("../Controllers/RequestHandler.php",
+                {   
+                    correct:true,
+                    // global: false,
+                    // async:false,
+                },  
+                function(data,status){
+                    data = JSON.parse(data)
+                    reponsesV(ObjectGlobal,data)
+                })
+            }
             // document.querySelector('.prog').value+=100/nbr
+            // reponses(ObjectGlobal)
         }
     }
    )
@@ -39,77 +76,6 @@ async function getQuestion(){
 
 getQuestion();
 
-
-var checks = document.querySelectorAll(".r");
-var Reponses = document.querySelectorAll('input[type="radio"]');
-let suivant = document.querySelector('.suivant');
-let TotalQuestion = document.querySelector('.TotalQuestion .number');
-var indexQuestion = 1;
-var indexReponse=0;
-var score = 0;
-var ReponseTrue = 0
-
-var u;
-var nom
-var prenom
-
-
-let timeElm = document.querySelector('.time .duree');
-
-var objGlobal
-
-//numbre Queqtion
-let numberq = document.querySelector('.Q .number');
-// reponse check user 
-var listReponse = []
-// async function getQuestion(){
-//     $.ajax({
-//         url:"/assets/js/data2.json",
-//         type:'GEt',
-//         success:function(data,status){
-//             let ObjQuestion = new Object(data);
-//             ObjQuestion = ObjQuestion.Questions.sort(() => Math.random() - 0.5)
-//             let countQuestion = ObjQuestion.length;
-//             nbr = countQuestion;
-//             TotalQuestion.innerHTML = nbr
-//             console.log(nbr)
-//             objGlobal=ObjQuestion
-//             //add first question in page
-//             first(ObjQuestion[0])
-//             //btn next question
-//             suivant.onclick = () =>{
-//                 let test = ObjQuestion[indexQuestion];
-//                 // setTimeout(() => {console.log("fdddddddddddddddddddd")}, 4000)
-//                 reponses(ObjQuestion[indexReponse],nbr)
-                
-//                 indexQuestion++
-//                 indexReponse++
-//                 //vide title question 
-//                 Questionn.innerHTML='';
-//                 // vide les reponse
-//                 document.querySelector(".ul").innerHTML='';
-//                 //add Question
-//                 AddQuestion(test,nbr)
-                
-//                 CountQuestion(indexQuestion)
-//                 // resultat
-//                 resultat(nbr)
-                
-//                 u=31
-//                 document.querySelector('.prog').value+=100/nbr
-//             }
-//             // reponsesV(ObjQuestion,nbr)   
-            
-//             async:false 
-//         }
-        
-//     })
-    
-    
-// }
-// getQuestion()
-
-    
 
 function CountQuestion(nbr){
     numberq.innerHTML=nbr;
@@ -125,8 +91,7 @@ function AddQuestion(obj,count){
         let newQuestion = document.createTextNode(obj.question);
         //Append Question in quiz
         Questionn.append(newQuestion);
-        console.log(count)
-        for (let i =1;  i<5;i++) {
+        for (let i =1; i<5;i++) {
             var li = document.createElement("li")
             // let icons = document.createElement('i')
             let radio = document.createElement('input')
@@ -151,39 +116,41 @@ function AddQuestion(obj,count){
         }
     }
 }
-
+let arrayRepons = []
 let checkReponse = document.getElementsByName('Reponse')
-function reponses(obj,nbr){
+function reponses(obj){
+    
     let Reponsess;
     
     for (let i = 0; i<checkReponse.length; i++) {
         if(checkReponse[i].checked){
             Reponsess =  checkReponse[i].value
             // console.log(Reponsess)
+            
         }
         else{
-            // Reponsess = 'aucun reponse'
+            // Reponsess = 'aucun'
         }
     }
-
-    console.log(' question '+nom+'check est ',Reponsess)
-    listReponse.push(Reponsess)
-    // if(Reponsess === obj['Reponse_vrai']){
-    //     // console.log("good")
-    //     ReponseTrue++
-    //     score+=100
-    // }else{
-    //     ReponseTrue
-    //     score
-    //     // console.log("not good")
-    // }
-    console.log(listReponse)
+    // $.ajax({
+    //     url: "../Controllers/res.php",
+    //     method: "POST",
+    //     data: {
+    //         Reponsess
+    //     },
+    //     success: function(data){
+    //       if(data=='vrai'){
+    //         score+=100
+    //       }else{
+    //         score
+    //       }
+    //     }
+    // });
     
-    
+    arrayRepons.push(Reponsess)
 }
 
 function first(t){
-    console.log(t)
     Question = t.question
     Reponse_1 = t.Reponse_1
     Reponse_2 = t.Reponse_2
@@ -217,26 +184,29 @@ function a(){
 
 function resultat(nbr){
     jh = nbr+1
-
+    // console.log(arrayQuestion)
+    // console.log(arrayRepons)
     if(indexQuestion === jh){
-        console.log('fin')
-        console.log(indexQuestion)
-        console.log(nbr)
-        console.log(listReponse)
-        // reponsesV(listReponse)
-        $.post('../Controllers/res.php',{
-            data:listReponse
-        },function (data,status) {
-            alert("ok")
-            loadOrderData(JSON.parse(data))
-        })
-
         suivant.remove()
         timeElm.innerText=ReponseTrue
         timeElm.remove()
-        // console.log(ReponseTrue)
-        // console.log(score)
-        document.querySelector('.resultat').innerText=nom+' '+prenom+' Resultat '+ReponseTrue
+        // send info user
+        // $.ajax({
+        //     url: "../Controllers/res.php",
+        //     method: "POST",
+        //     data: {
+        //         arrayRepons
+        //     },
+        //     success: function(data){
+        //     //   if(data=='vrai'){
+        //     //     score+=100
+        //     //   }else{
+        //     //     score
+        //     //   }
+        //     }
+        // });
+        
+        document.querySelector('.resultat').innerText=nom+' '+prenom
         document.querySelector('.TotalQuestion').innerText='Score '+score
         document.querySelector('.progressBar').children[2].classList.add('active')
         document.querySelector('.prog').style.display='none'
@@ -273,94 +243,63 @@ start.addEventListener('click',function(){
 })
 
 
-// function reponsesV(obj){
-//     for (let i = 0; i < obj.length; i++) {
-//         nbr=i+1
-//         var ul = document.createElement('ul')
-//         ul.className='hy'
-//         var nbQuestion = document.createElement('div')
-//         nbQuestion.innerText ='Question '+nbr
-//         var li = document.createElement("li")
-//         var licorrecte = document.createElement("li")
-//         var spanvotre = document.createElement('span')
-//         var spancorrecte = document.createElement('span')
-//         spanvotre.className='msg'
-//         spancorrecte.className='msg'
-//         licorrecte.className='vrai'
-//         var div = document.createElement('div')
-        
-//         // console.log('ob ',objGlobal[i].Reponse_vrai)
-//         // console.log('liste ',obj[i])
-//         if(obj[i] == null){
-//             // span.innerText=nbr
-//             li.innerText='aucun reponse'
-//             li.className = 'faux'
-//         }else{
-//             li.innerText=obj[i]
-//             if(obj[i] === objGlobal[i].Reponse_vrai ){
-                
-//                 console.log('yes')
-//                 li.className = 'vrai'
-//             }else{
-//                 console.log('no')
-//                 li.className = 'faux'
-//             }
-//         }
-//         ul.appendChild(nbQuestion)
-//         spanvotre.innerText='votre réponse'
-//         ul.appendChild(spanvotre)
-//         ul.appendChild(li)
-//         spancorrecte.innerText='réponse correcte'
-//         licorrecte.innerText=objGlobal[i].Reponse_vrai
-//         ul.appendChild(spancorrecte)
-//         ul.appendChild(licorrecte)
-//         div.innerText=objGlobal[i].explication
-//         ul.appendChild(div)
-//         document.querySelector('.questionResult').appendChild(ul)
-//     }
-// }
+function reponsesV(obj,correct){
+    for (let i = 0; i < arrayRepons.length; i++) {
+        $.post("../Controllers/RequestHandler.php",
+        {   
+            id:arrayRepons[i],
+        },  
+        function(data,status){
+            data = JSON.parse(data)
+            console.log(data)
 
-
-
-
-
-
-function passListeReuslt(){
-    let rt =[23,23,2,3]
-    // $.post('../Controllers/RequestHandler.php'),
-    // {
-    //     reponsess:rt
-    // },
-    // function(data,status){
-    //     alert("OK");
+            if(arrayRepons.includes(''+correct[i]['id'])){
+                document.querySelector('.questionResult').innerHTML+=`<ul class="hy">
+                <div>${data[0]['questions']}</div>
+                <span class="msg">votre réponse</span>
+                <li class="vrai">${data[0]['correct']}</li>
+                <span class="msg">explication</span>
+                <div>${data[0]['exp']}</div>
+                </ul>`;
+            }else{
+                document.querySelector('.questionResult').innerHTML+=`<ul class="hy">
+                <div>${data[0]['questions']}</div>
+                <span class="msg">votre réponse</span>
+                <li class="faux">${data[0]['correct']}</li>
+                <span class="msg">explication</span>
+                <div>${data[0]['exp']}</div>
+                </ul>`;
+            }
+            
+        })
+    }
+    
+   
+   
+    // for (let i = 0; i < correct.length; i++) {
+    //     console.log(correct[i]['id'])
+    //     if(arrayRepons[i] == null ){
+    //     }else{
+    //         if(arrayRepons.includes(''+correct[i]['id'])){
+    //             document.querySelector('.questionResult').innerHTML+=`<ul class="hy">
+    //             <div>${data[0]['questions']}</div>
+    //             <span class="msg">votre réponse</span>
+    //             <li class="vrai">${data[0]['correct']}</li>
+    //             <span class="msg">explication</span>
+    //             <div>${data[0]['exp']}</div>
+    //             </ul>`;
+    //         }else{
+    //             document.querySelector('.questionResult').innerHTML+=`<ul class="hy">
+    //             <div>${data[0]['questions']}</div>
+    //             <span class="msg">votre réponse</span>
+    //             <li class="faux">${data[0]['correct']}</li>
+    //             <span class="msg">explication</span>
+    //             <div>${data[0]['exp']}</div>
+    //             </ul>`;
+    //         }
+            
+    //     }
     // }
-    $.ajax({
-        type: "POST",
-        url: "../Controllers/res.php",
-        reponsess: rt, 
-        // cache: false,
-        // async: false,
-        // dataType: "JSON",
-        data: {"values": rt},
-
-        success: function(){
-        alert("OK");
-        }
-     });
-    // $.ajax({
-    //             type: 'POST',
-    //             url: '../Controllers/res.php',
-    //             async: false,
-    //             dataType: "JSON",
-    //             data: {"values": JSON.stringify(rt)},
-    //             success:function(response){
-    //                 alert(1);
-    //             }
-    //     });
- 
+    
 }
 
-
-// document.addEventListener('click',function(){
-//     passListeReuslt()
-// })

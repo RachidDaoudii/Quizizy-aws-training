@@ -386,26 +386,26 @@ progress::-webkit-progress-value {
 }
 
 
-input[type="radio"]{
+// input[type="radio"]{
 
-    /* The native appearance is hidden */
-    width: 15px;
-    height: 15px;
-    appearance: none;
-    -webkit-appearance: none;
+//     /* The native appearance is hidden */
+//     width: 15px;
+//     height: 15px;
+//     appearance: none;
+//     -webkit-appearance: none;
   
-    /* For a circular appearance we need a border-radius. */
-    border-radius: 50%;
+//     /* For a circular appearance we need a border-radius. */
+//     border-radius: 50%;
   
-    /* The background will be the radio dot's color. */
-    background: #47b5ff5f;
+//     /* The background will be the radio dot's color. */
+//     background: #47b5ff5f;
   
-    /* The border will be the spacing between the dot and the outer circle */
-    border: 3px solid #FFF;
+//     /* The border will be the spacing between the dot and the outer circle */
+//     border: 3px solid #FFF;
   
-    /* And by creating a box-shadow with no offset and no blur, we have an outer circle */
-    box-shadow: 0 0 0 1px #256D85;
-  }
+//     /* And by creating a box-shadow with no offset and no blur, we have an outer circle */
+//     box-shadow: 0 0 0 1px #256D85;
+//   }
 
   label.r{
     margin-left: 10px;

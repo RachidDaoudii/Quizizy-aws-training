@@ -1,15 +1,9 @@
 <?php
 
-
-if(isset($_POST['data'])) gt();
-
-function gt(){
-    $da = $_POST['data'];
-var_dump($da);
-echo 45;
-die;
-}
+include_once 'Controller.Quiz.php';
+$reponse = $_POST['arrayRepons'];
 
 
-echo 45454;
-?>
+$con = new ControllerQuiz(); 
+
+$con->getreponses($reponse);
