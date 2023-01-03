@@ -2,10 +2,6 @@
 include_once '../DataBase/DB.php';
 class ModelQuiz extends DB{
 
-    // protected function gatData(){
-    //     return $this->Connect();
-    // }
-
 
     protected function getAll(){
         $sql="select DISTINCT q.content as question,
@@ -27,16 +23,15 @@ class ModelQuiz extends DB{
 
 
     protected function getreponse($id){
-        // $sql="SELECT id FROM responses WHERE iscorrect=?";
-        $sql="SELECT iscorrect FROM `responses` WHERE id=?";
+        $sql="SELECT q.content as question,r.iscorrect as correct , r.content as content FROM responses as r 
+        INNER join questions as q 
+        ON r.question_id=q.id
+        WHERE r.id=?";
+        // $sql="SELECT iscorrect as correct , id , content as reponse FROM responses WHERE id=?";
         $statement = $this->Connect()->prepare($sql);
         $statement->execute(array($id));
-        $row_count =$statement->fetchColumn();
-        if($row_count == 1){
-            echo'vrai';
-        }else{
-            echo'faux';
-        }
+        $res = $statement->fetchAll();
+        return $res;
     }
 
 
@@ -58,4 +53,28 @@ class ModelQuiz extends DB{
         $res = $statement->fetchAll();
         return $res;
     }
+
+
+    protected function getAllReponse(){
+        $sql="SELECT id FROM `responses`";
+        $statement = $this->Connect()->prepare($sql);
+        $statement->execute();
+        $res = $statement->fetchAll();
+        return $res;
+    }
+
+    protected function getScore($id){
+        $sql="SELECT id FROM responses where iscorrect=? and id=?";
+        $statement = $this->Connect()->prepare($sql);
+        $statement->execute(array(1,$id));
+        $row = $statement->fetchColumn();
+        if($row > 0){
+            echo 'true';
+        }else{
+            echo 'false';
+        }
+    }
+
+
+    
 }

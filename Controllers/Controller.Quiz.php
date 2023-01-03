@@ -16,8 +16,20 @@ class ControllerQuiz extends ModelQuiz{
     {
         return $this->getCorrect();
     }
+
     function reponseVrai($id)
     {
         return $this->reponse($id);
+    }
+
+
+    function getIdAllReponse()
+    {
+        return $this->getAllReponse();
+    }
+
+    function Score($id)
+    {
+        return $this->getScore($id);
     }
 }

@@ -20,10 +20,10 @@
     <div class="navbar">
         <div class="list">
             <ul>
-                <li><a href="#" class="logo">Quizizy aws training</a></li>
+                <!-- <li><a href="#" class="logo">Quizizy aws training</a></li>
                 <li><a href="#"></a>Quizz</li>
                 <li><a href="#"></a>About</li>
-                <li><a href="#"></a>Contact</li>
+                <li><a href="#"></a>Contact</li> -->
             </ul>
         </div>
     </div>
@@ -46,19 +46,22 @@
             <div class="info displayStart">
                 <div class="Q">
                     <div class="beinvenu">
-                        <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam, placeat.</h1>
+                        <h1>quiz time <br>
+                        let's your knowledge to the test!
+                        </h1>
                     </div>
                     <form class="form-info">
                         <div class="group">
                             <label for="" class="from-label">Nom</label>
-                            <input type="text" class="form-control" name="Nom" id="nom">
+                            <input type="text" class="form-control" name="Nom" id="nom" >
                         </div>
+                        <div id="msgsql"></div>
                         <div class="group">
                             <label for="" class="from-label">Prenom</label>
                             <input type="text" class="form-control" name="Prenom" id="prenom">
                         </div>
                     </form>
-                    <button class="btn" id="start" >Start</button>
+                    <button class="btn" id="start">Start</button>
                 </div>
             </div>
             <div class="quiz">
@@ -91,11 +94,31 @@
             <div class="result">
                 <div class="beinvenu">
                     <h1 class="h1">Reponse</h1>
+                    <input type="submit" id="score" class="btn suivant" value="score">
                 </div>
                 <div class="questionResult">
 
                 </div>
                 <!-- <input type="submit" class="btn suivant explication" value="l'explication"> -->
+            </div>
+            <div class="score">
+            <div class="beinvenu">
+                <h1>Score</h1>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">FirstName</th>
+                    <th scope="col">LastName</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Score</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                    
+                </tbody>
+            </table>
             </div>
         </div>
     </div>

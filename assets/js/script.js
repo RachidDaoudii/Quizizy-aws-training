@@ -11,12 +11,7 @@ var u;
 var nom
 var prenom
 var correct_answer_id = []
-function arrangCorrect(){
-    corr
-}
 let timeElm = document.querySelector('.time .duree');
-
-
 
 //numbre Queqtion
 let numberq = document.querySelector('.Q .number');
@@ -31,7 +26,7 @@ async function getQuestion(){
         ObjectGlobal = JSON.parse(data).sort(() => Math.random() - 0.5)
         let count = ObjectGlobal.length
         first(ObjectGlobal[0])
-        
+        TotalQuestion.innerText=count
         suivant.onclick = () =>{
 
             let test = ObjectGlobal[indexQuestion];
@@ -51,24 +46,12 @@ async function getQuestion(){
             CountQuestion(indexQuestion)
             // resultat
             resultat(count)
-
-            // reponsesV(ObjectGlobal)
             
             u=31
             if(indexQuestion>count){
-                $.post("../Controllers/RequestHandler.php",
-                {   
-                    correct:true,
-                    // global: false,
-                    // async:false,
-                },  
-                function(data,status){
-                    data = JSON.parse(data)
-                    reponsesV(ObjectGlobal,data)
-                })
+                reponsesV(ObjectGlobal,data)
             }
             // document.querySelector('.prog').value+=100/nbr
-            // reponses(ObjectGlobal)
         }
     }
    )
@@ -125,28 +108,21 @@ function reponses(obj){
     for (let i = 0; i<checkReponse.length; i++) {
         if(checkReponse[i].checked){
             Reponsess =  checkReponse[i].value
-            // console.log(Reponsess)
-            
+        $.post("../Controllers/RequestHandler.php",
+        {   
+            score:Reponsess,
+        },function(data){
+            if(data === "true"){
+                score+=100
+            }else{
+                score
+            }
+        }) 
         }
         else{
             // Reponsess = 'aucun'
         }
     }
-    // $.ajax({
-    //     url: "../Controllers/res.php",
-    //     method: "POST",
-    //     data: {
-    //         Reponsess
-    //     },
-    //     success: function(data){
-    //       if(data=='vrai'){
-    //         score+=100
-    //       }else{
-    //         score
-    //       }
-    //     }
-    // });
-    
     arrayRepons.push(Reponsess)
 }
 
@@ -184,27 +160,19 @@ function a(){
 
 function resultat(nbr){
     jh = nbr+1
-    // console.log(arrayQuestion)
-    // console.log(arrayRepons)
     if(indexQuestion === jh){
         suivant.remove()
         timeElm.innerText=ReponseTrue
         timeElm.remove()
+        console.log('send user'+nom+prenom+score)
         // send info user
-        // $.ajax({
-        //     url: "../Controllers/res.php",
-        //     method: "POST",
-        //     data: {
-        //         arrayRepons
-        //     },
-        //     success: function(data){
-        //     //   if(data=='vrai'){
-        //     //     score+=100
-        //     //   }else{
-        //     //     score
-        //     //   }
-        //     }
-        // });
+        $.post("../Controllers/infoUser.php",
+        {   
+            firstName:nom,
+            lastName:prenom,
+            score:score,
+        },function(data){
+        }) 
         
         document.querySelector('.resultat').innerText=nom+' '+prenom
         document.querySelector('.TotalQuestion').innerText='Score '+score
@@ -229,7 +197,6 @@ function resultat(nbr){
 
 
 let start = document.getElementById('start')
-
 start.addEventListener('click',function(){
     document.querySelector('.displayStart').style.display='none'
     document.querySelector('.quiz').style.display='block'
@@ -238,68 +205,85 @@ start.addEventListener('click',function(){
     prenom = document.querySelector('#prenom').value
     u=31
     // document.querySelector('.prog').value+=100/nbr
-    
-
 })
 
 
 function reponsesV(obj,correct){
+    let arr = []
     for (let i = 0; i < arrayRepons.length; i++) {
+        arr.push(parseInt(arrayRepons[i]))
+    }
+    console.log(arr)
         $.post("../Controllers/RequestHandler.php",
-        {   
-            id:arrayRepons[i],
+        {
+            id:JSON.stringify(arr),
+        },  
+        function(data,status){
+            data = JSON.parse(data)
+            for (let i = 0; i < data.length; i++) {
+                if(data[i][0]['correct']==1){
+                    document.querySelector('.questionResult').innerHTML+=`<ul class="hy">
+                    <div>${data[i][0]['question']}</div>
+                    <span class="msg">votre réponse</span>
+                    <li class="vrai">${data[i][0]['content']}</li>
+                    </ul>`;
+                }else{
+                    document.querySelector('.questionResult').innerHTML+=`<ul class="hy">
+                    <div>${data[i][0]['question']}</div>
+                    <span class="msg">votre réponse</span>
+                    <li class="faux">${data[i][0]['content']}</li>
+                    </ul>`;
+                }
+            }
+            
+        })  
+}
+
+document.getElementById('score').addEventListener('click',function(){
+    document.querySelector('.result').style.display="none"
+    document.querySelector('.score').style.display="block"
+    $.post("../Controllers/infoUser.php",
+        {
+            user:true,
         },  
         function(data,status){
             data = JSON.parse(data)
             console.log(data)
-
-            if(arrayRepons.includes(''+correct[i]['id'])){
-                document.querySelector('.questionResult').innerHTML+=`<ul class="hy">
-                <div>${data[0]['questions']}</div>
-                <span class="msg">votre réponse</span>
-                <li class="vrai">${data[0]['correct']}</li>
-                <span class="msg">explication</span>
-                <div>${data[0]['exp']}</div>
-                </ul>`;
-            }else{
-                document.querySelector('.questionResult').innerHTML+=`<ul class="hy">
-                <div>${data[0]['questions']}</div>
-                <span class="msg">votre réponse</span>
-                <li class="faux">${data[0]['correct']}</li>
-                <span class="msg">explication</span>
-                <div>${data[0]['exp']}</div>
-                </ul>`;
+            for (let i = 0; i < data.length; i++) {
+                document.querySelector('.tbody').innerHTML+=`
+                <tr>
+                <th scope="row">${i+1}</th>
+                    <td>${data[i]['firstName']}</td>
+                    <td>${data[i]['LastName']}</td>
+                    <td>${data[i]['date']}</td>
+                    <td>${data[i]['Score']}</td>
+                </tr>
+                `;
             }
             
-        })
-    }
-    
-   
-   
-    // for (let i = 0; i < correct.length; i++) {
-    //     console.log(correct[i]['id'])
-    //     if(arrayRepons[i] == null ){
-    //     }else{
-    //         if(arrayRepons.includes(''+correct[i]['id'])){
-    //             document.querySelector('.questionResult').innerHTML+=`<ul class="hy">
-    //             <div>${data[0]['questions']}</div>
-    //             <span class="msg">votre réponse</span>
-    //             <li class="vrai">${data[0]['correct']}</li>
-    //             <span class="msg">explication</span>
-    //             <div>${data[0]['exp']}</div>
-    //             </ul>`;
-    //         }else{
-    //             document.querySelector('.questionResult').innerHTML+=`<ul class="hy">
-    //             <div>${data[0]['questions']}</div>
-    //             <span class="msg">votre réponse</span>
-    //             <li class="faux">${data[0]['correct']}</li>
-    //             <span class="msg">explication</span>
-    //             <div>${data[0]['exp']}</div>
-    //             </ul>`;
-    //         }
-            
-    //     }
-    // }
-    
-}
+        })  
+})
+
+
+$(document).ready(function(){
+    start.disabled = true;
+    $("#nom").keyup(function(){
+        var nom = $(this).val();
+        if(nom == ""){
+            $("#msgsql").fadeOut();
+        }else{
+            $.post("../Controllers/infoUser.php",
+            {
+                nomUser:nom,
+            },function(data){
+                $("#msgsql").fadeIn().html(data);
+                if(data == '<span>This Nom is not Available.</span>'){
+                    start.disabled = true;
+                }else{
+                    start.disabled = false;
+                }
+            })
+        }
+    });
+});
 

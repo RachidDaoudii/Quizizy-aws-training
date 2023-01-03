@@ -384,4 +384,41 @@ label.r {
   display: flex;
   justify-content: start;
   margin-top: 5px;
+}
+
+.result #score {
+  margin-top: 30px;
+}
+
+.score {
+  display: none;
+  margin: auto;
+  width: 70%;
+  height: 200%;
+}
+.score .beinvenu h1, .score .test h1 h1, .test .score h1 h1 {
+  padding-top: 40px;
+  text-align: center;
+}
+.score .table {
+  margin-top: 50px;
+  width: 100%;
+  border: 1px solid #06283D;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.score .table td, .score .table th {
+  border: 2px solid #256D85;
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 8px;
+}
+.score .table table {
+  border-collapse: collapse;
+}
+.score .table tbody tr:nth-child(odd) {
+  background: #eee;
+}
+.score .table caption {
+  font-size: 0.8rem;
 }/*# sourceMappingURL=style.css.map */

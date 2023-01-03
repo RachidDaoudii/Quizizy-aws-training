@@ -452,3 +452,46 @@ progress::-webkit-progress-value {
         }
     }
 }
+.result{
+    #score {
+        margin-top: 30px;
+    }
+}
+
+.score{
+    display: none;
+    margin: auto;
+    width: 70%;
+    height: 200%;
+
+    .beinvenu h1{
+        padding-top: 40px;
+        text-align: center;
+    }
+    
+    .table{
+        margin-top: 50px;
+        width: 100%;
+        border: 1px solid #06283D;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        td, th {
+            border: 2px solid #256D85;
+            padding: 0.5rem;
+            text-align: center;
+            border-radius: 8px;
+        }
+         
+        table {
+            border-collapse: collapse;
+        }
+         
+        tbody tr:nth-child(odd) {
+            background: #eee;
+        }
+        caption {
+            font-size: 0.8rem;
+        }
+        
+    }
+}
